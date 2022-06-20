@@ -1,10 +1,11 @@
 package com.technovision.tutorialbot.listeners;
 
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
-import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.events.user.update.UserUpdateOnlineStatusEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,11 +32,10 @@ public class EventListener extends ListenerAdapter {
 
     /**
      * Event fires when a message is sent in discord.
-     * Warning: Will require "Guild Messages" gateway intent after August 2022!
+     * Will require "Guild Messages" gateway intent after August 2022!
      */
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        // WILL NOT WORK WITHOUT GATEWAY INTENT!
         String message = event.getMessage().getContentRaw();
         if (message.contains("ping")) {
             event.getChannel().sendMessage("pong").queue();
@@ -44,22 +44,25 @@ public class EventListener extends ListenerAdapter {
 
     /**
      * Event fires when a new member joins a guild
-     * Warning: Will not work without "Guild Members" gateway intent!
+     * Requires "Guild Members" gateway intent!
      */
     @Override
     public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
-        // WILL NOT WORK WITHOUT GATEWAY INTENT!
-        String avatar = event.getUser().getEffectiveAvatarUrl();
-        System.out.println(avatar);
+        Role role = event.getGuild().getRoleById(988342442430443540L);
+        if (role != null) {
+            event.getGuild().addRoleToMember(event.getMember(), role).queue();
+        }
     }
 
     /**
-     * Event fires when a role is added to a guild member.
-     * Warning: Will not work without "Guild Presences" gateway intent!
+     * Event fires when a user updates their online status
+     * Requires "Guild Presences" gateway intent AND cache enabled!
      */
     @Override
-    public void onGuildMemberRoleAdd(@NotNull GuildMemberRoleAddEvent event) {
-        // WILL NOT WORK WITHOUT GATEWAY INTENT!
-        event.getGuild().getDefaultChannel().sendMessage("Somebody got a new role!").queue();
+    public void onUserUpdateOnlineStatus(@NotNull UserUpdateOnlineStatusEvent event) {
+        // WILL NOT WORK WITHOUT USER CACHE (See Episode 5)
+        User user = event.getUser();
+        String message = user.getAsTag() + " updated their online status!";
+        event.getGuild().getDefaultChannel().sendMessage(message).queue();
     }
 }
