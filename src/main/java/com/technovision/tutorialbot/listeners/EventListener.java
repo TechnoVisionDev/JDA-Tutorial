@@ -1,5 +1,7 @@
 package com.technovision.tutorialbot.listeners;
 
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
@@ -60,9 +62,13 @@ public class EventListener extends ListenerAdapter {
      */
     @Override
     public void onUserUpdateOnlineStatus(@NotNull UserUpdateOnlineStatusEvent event) {
-        // WILL NOT WORK WITHOUT USER CACHE (See Episode 5)
-        User user = event.getUser();
-        String message = user.getAsTag() + " updated their online status!";
+        int onlineMembers = 0;
+        for (Member member : event.getGuild().getMembers()) {
+            if (member.getOnlineStatus() == OnlineStatus.ONLINE) {
+                onlineMembers++;
+            }
+        }
+        String message = event.getUser().getAsTag()+"updated their online status! There are "+onlineMembers+" members online now!";
         event.getGuild().getDefaultChannel().sendMessage(message).queue();
     }
 }

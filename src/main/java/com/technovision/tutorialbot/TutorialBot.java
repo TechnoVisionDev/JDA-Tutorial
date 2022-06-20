@@ -7,6 +7,9 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
+import net.dv8tion.jda.api.utils.ChunkingFilter;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
 
@@ -35,6 +38,9 @@ public class TutorialBot {
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.watching("TechnoVisionTV"));
         builder.enableIntents(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES);
+        builder.setMemberCachePolicy(MemberCachePolicy.ALL);
+        builder.setChunkingFilter(ChunkingFilter.ALL);
+        builder.enableCache(CacheFlag.ONLINE_STATUS);
         shardManager = builder.build();
 
         // Register listeners
