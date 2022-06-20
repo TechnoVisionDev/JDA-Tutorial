@@ -35,7 +35,7 @@ public class EventListener extends ListenerAdapter {
      */
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        // WILL NOT WORK WITHOUT GATEWAY INTENT!
+        // After August 2022 will require gateway intent
         String message = event.getMessage().getContentRaw();
         if (message.contains("ping")) {
             event.getChannel().sendMessage("pong").queue();
