@@ -1,5 +1,6 @@
 package com.technovision.tutorialbot;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -15,6 +16,7 @@ import javax.security.auth.login.LoginException;
  */
 public class TutorialBot {
 
+    private final Dotenv config;
     private final ShardManager shardManager;
 
     /**
@@ -22,12 +24,20 @@ public class TutorialBot {
      * @throws LoginException occurs when bot token is invalid.
      */
     public TutorialBot() throws LoginException {
-        String token = "YOUR_BOT_TOKEN";
+        config = Dotenv.configure().load();
+        String token = config.get("TOKEN");
+
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(token);
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.watching("TechnoVisionTV"));
         shardManager = builder.build();
     }
+
+    /**
+     * Retrieves the bot environment variables.
+     * @return the DotEnv instance for the bot.
+     */
+    public Dotenv getConfig() { return config; }
 
     /**
      * Retrieves the bot shard manager.
