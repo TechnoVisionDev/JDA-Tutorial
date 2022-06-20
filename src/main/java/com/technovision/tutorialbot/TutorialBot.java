@@ -1,5 +1,6 @@
 package com.technovision.tutorialbot;
 
+import com.technovision.tutorialbot.commands.CommandManager;
 import com.technovision.tutorialbot.listeners.EventListener;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -44,7 +45,7 @@ public class TutorialBot {
         shardManager = builder.build();
 
         // Register listeners
-        shardManager.addEventListener(new EventListener());
+        shardManager.addEventListener(new EventListener(), new CommandManager());
     }
 
     /**
