@@ -5,6 +5,14 @@ The complete source code for my Java Discord API v5 tutorial series! If you have
 
 [Episode 1](https://github.com/TechnoVisionDev/JDA-Tutorial/tree/Tutorials/EP1) <br />
 [Episode 2](https://github.com/TechnoVisionDev/JDA-Tutorial/tree/Tutorials/EP2) <br />
+[Episode 3](https://github.com/TechnoVisionDev/JDA-Tutorial/tree/Tutorials/EP3) <br />
+[Episode 4](https://github.com/TechnoVisionDev/JDA-Tutorial/tree/Tutorials/EP4) <br />
+[Episode 5](https://github.com/TechnoVisionDev/JDA-Tutorial/tree/Tutorials/EP5) <br />
+[Episode 6](https://github.com/TechnoVisionDev/JDA-Tutorial/tree/Tutorials/EP6) <br />
+[Episode 7](https://github.com/TechnoVisionDev/JDA-Tutorial/tree/Tutorials/EP6) <br />
+[Episode 8](https://github.com/TechnoVisionDev/JDA-Tutorial/tree/Tutorials/EP6) <br />
+[Episode 9](https://github.com/TechnoVisionDev/JDA-Tutorial/tree/Tutorials/EP6) <br />
+[Episode 10](https://github.com/TechnoVisionDev/JDA-Tutorial/tree/Tutorials/EP10) <br />
 
 ### Connect With Me:
 
