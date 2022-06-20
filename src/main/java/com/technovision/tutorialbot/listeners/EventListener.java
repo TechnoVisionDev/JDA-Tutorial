@@ -2,7 +2,6 @@ package com.technovision.tutorialbot.listeners;
 
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
-import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -51,15 +50,5 @@ public class EventListener extends ListenerAdapter {
         // WILL NOT WORK WITHOUT GATEWAY INTENT!
         String avatar = event.getUser().getEffectiveAvatarUrl();
         System.out.println(avatar);
-    }
-
-    /**
-     * Event fires when a role is added to a guild member.
-     * Warning: Will not work without "Guild Presences" gateway intent!
-     */
-    @Override
-    public void onGuildMemberRoleAdd(@NotNull GuildMemberRoleAddEvent event) {
-        // WILL NOT WORK WITHOUT GATEWAY INTENT!
-        event.getGuild().getDefaultChannel().sendMessage("Somebody got a new role!").queue();
     }
 }
