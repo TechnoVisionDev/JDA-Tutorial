@@ -55,7 +55,7 @@ public class CommandManager extends ListenerAdapter {
 
     /**
      * Registers slash commands as GLOBAL commands (unlimited).
-     * These commands will take an hour to update.
+     * These commands may take up to an hour to update.
      */
     @Override
     public void onReady(@NotNull ReadyEvent event) {
