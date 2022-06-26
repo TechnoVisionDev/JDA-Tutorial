@@ -1,6 +1,7 @@
 package com.technovision.tutorialbot.commands;
 
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -41,14 +42,26 @@ public class CommandManager extends ListenerAdapter {
     }
 
     /**
-     * Registers slash commands as guild commands.
+     * Registers slash commands as GUILD commands (max 100).
+     * These commands will update instantly and are great for testing.
      */
     @Override
     public void onGuildReady(@NotNull GuildReadyEvent event) {
         List<CommandData> commandData = new ArrayList<>();
         commandData.add(Commands.slash("welcome", "Get welcomed by the bot"));
         commandData.add(Commands.slash("roles", "Display all roles on the server"));
-
         event.getGuild().updateCommands().addCommands(commandData).queue();
+    }
+
+    /**
+     * Registers slash commands as GLOBAL commands (unlimited).
+     * These commands will take an hour to update.
+     */
+    @Override
+    public void onReady(@NotNull ReadyEvent event) {
+        List<CommandData> commandData = new ArrayList<>();
+        commandData.add(Commands.slash("welcome", "Get welcomed by the bot"));
+        commandData.add(Commands.slash("roles", "Display all roles on the server"));
+        event.getJDA().updateCommands().addCommands(commandData).queue();
     }
 }
