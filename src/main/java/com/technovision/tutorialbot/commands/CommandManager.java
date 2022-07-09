@@ -89,16 +89,4 @@ public class CommandManager extends ListenerAdapter {
 
         event.getGuild().updateCommands().addCommands(commandData).queue();
     }
-
-    /**
-     * Registers slash commands as GLOBAL commands (unlimited).
-     * These commands may take up to an hour to update.
-     */
-    @Override
-    public void onReady(@NotNull ReadyEvent event) {
-        List<CommandData> commandData = new ArrayList<>();
-        commandData.add(Commands.slash("welcome", "Get welcomed by the bot"));
-        commandData.add(Commands.slash("roles", "Display all roles on the server"));
-        event.getJDA().updateCommands().addCommands(commandData).queue();
-    }
 }
