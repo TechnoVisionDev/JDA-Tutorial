@@ -66,6 +66,24 @@ public class CommandManager extends ListenerAdapter {
             event.getGuild().addRoleToMember(member, role).queue();
             event.reply(member.getAsMention() + " has been given the " + role.getAsMention() + " role!").queue();
         }
+        else if (command.equals("emote")) {
+            OptionMapping option = event.getOption("type");
+            String type = option.getAsString();
+
+            String replyMessage = "";
+            switch (type.toLowerCase()) {
+                case "hug" -> {
+                    replyMessage = "You hug the closest person to you.";
+                }
+                case "laugh" -> {
+                    replyMessage = "You laugh hysterically at everyone around you.";
+                }
+                case "cry" -> {
+                    replyMessage = "You can't stop crying";
+                }
+            }
+            event.reply(replyMessage).queue();
+        }
     }
 
     /**
@@ -83,9 +101,15 @@ public class CommandManager extends ListenerAdapter {
                 .setChannelTypes(ChannelType.TEXT, ChannelType.NEWS, ChannelType.GUILD_PUBLIC_THREAD);
         commandData.add(Commands.slash("say", "Make the bot say a message").addOptions(option1, option2));
 
-        OptionData option3 = new OptionData(OptionType.USER, "user", "The user to give the role to", true);
-        OptionData option4 = new OptionData(OptionType.ROLE, "role", "The role to be given", true);
-        commandData.add(Commands.slash("giverole", "Give a user a role").addOptions(option3, option4));
+        OptionData option3 = new OptionData(OptionType.STRING, "type", "The type of emotion to express", true)
+                .addChoice("Hug", "hug")
+                .addChoice("Laugh", "laugh")
+                .addChoice("Cry", "cry");
+        commandData.add(Commands.slash("emote", "Express your emotions through text.").addOptions(option3));
+
+        OptionData option4 = new OptionData(OptionType.USER, "user", "The user to give the role to", true);
+        OptionData option5 = new OptionData(OptionType.ROLE, "role", "The role to be given", true);
+        commandData.add(Commands.slash("giverole", "Give a user a role").addOptions(option4, option5));
 
         event.getGuild().updateCommands().addCommands(commandData).queue();
     }
